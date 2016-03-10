@@ -1,0 +1,49 @@
+<%= form_for @user, html: { multipart: true } do |f| %>
+  
+  <div class="form-group">
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h3>
+          <%= pluralize(@user.errors.count, "error") %>
+          Prohibited this user form being saved:
+        </h3>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>  
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :fname, 'First Name' %><br />
+    <%= f.text_field :fname, autofocus: true, class:'form-control', placeholder:'First Name' %>
+  </div>
+
+  <div>
+    <%= f.label :lname, 'Last Name' %><br />
+    <%= f.text_field :lname, class:'form-control', placeholder:'Last Name' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :dob %><br />
+    <%= f.text_field :dob, class:'form-control', placeholder: 'dd/mm/yyyy' %>
+  </div>
+
+  <div>
+    <%= f.label :gender %><br />
+    <%= f.radio_button :gender, 'male' %> Male &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= f.radio_button :gender, 'female' %>Female
+  </div>
+
+  <div>
+    <%= f.label :avatar, 'Add Profile Image' %>: 
+    <%= f.file_field :avatar %>
+  </div>
+
+  <div class="form-group">
+      <%= f.submit :submit, class: 'btn btn-default'%>
+  </div>
+
+<% end %>

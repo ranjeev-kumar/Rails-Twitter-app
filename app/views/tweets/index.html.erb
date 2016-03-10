@@ -1,0 +1,84 @@
+<div id="head-container" class="row">
+	
+	<div id="new-tweet" class="col-md-3">
+		<%= link_to image_tag(current_user.avatar.url, width: 90, height: 90, class: 'img-circle'), user_path(current_user.id) %>
+		
+		<strong>
+			<%= link_to current_user.fname + " " + current_user.lname, user_path(current_user.id) %>
+		</strong>
+		<br />
+		<%= render 'form' %>
+		<div>
+			<% User.all.each do |user| %>
+				<% if user.id != current_user.id %>
+					<p>
+						<%= link_to image_tag(user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(user.id) %>
+						<strong>
+							<%= link_to user.fname + " " + user.lname, user_path(user.id) %><br/>
+						</strong>
+					</p>
+				<% end %>
+			<% end %>
+		</div>
+
+	</div>
+
+	<div id="tweet-container" class="col-md-6">
+		<% @tweets.each do |tweet| %>
+			<div id="tweet-id">
+				<strong>
+					<%= link_to image_tag(tweet.user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(tweet.user.id) %>
+					<%= link_to tweet.user.fname + " " + tweet.user.lname, user_path(tweet.user.id) %>
+				</strong>
+				<%= tweet.body %>
+
+				<% if tweet.user.id == current_user.id %>
+					<div class="pull-right">
+						<%= link_to edit_tweet_path(tweet.id) do %> 
+							<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
+						<% end %>&nbsp;&nbsp;|&nbsp;&nbsp;
+
+						<%= link_to tweet_path(tweet), method: :delete, data: { confirm: 'Are You Sure?'} do %>
+							<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
+						<% end %>
+					</div>
+				<% end %>
+
+				<div id="comment-container">
+					<% tweet.comments.each do |comment| %>
+						<div id="comment-id">
+							<strong>
+								<%= link_to image_tag(comment.user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(comment.user.id) %>
+								<%= link_to comment.user.fname + " " + comment.user.lname, user_path(comment.user.id)  %>
+							</strong>
+							<%= comment.body %>
+							<% if comment.user.id == current_user.id %>
+								<div class="pull-right">
+									<%= link_to edit_tweet_comment_path(tweet, comment) do %> 
+										<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
+									<% end %>&nbsp;|&nbsp;
+
+									<%= link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: 'Are You Sure?'} do %>
+										<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
+									<% end %>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+
+					<div id="comment-form">
+						<%= form_for([tweet, tweet.comments.build]) do |f| %>
+							<div class="form-group">
+								<%= f.text_area :body %>
+								<%= f.submit :submit%>
+							</div>
+						<% end %>
+					</div>
+				</div>	
+			</div>
+			<hr>
+		<% end %>
+	</div>
+
+
+</div>

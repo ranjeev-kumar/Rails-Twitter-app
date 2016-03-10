@@ -1,0 +1,28 @@
+<%= form_for @tweet do |f| %>
+  
+  <div class="form-group">
+    <% if @tweet.errors.any? %>
+      <div id="error_explanation">
+        <h3>
+          <%= pluralize(@tweet.errors.count, "error") %>
+          Prohibited this tweet form being saved:
+        </h3>
+        <ul>
+          <% @tweet.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>  
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :body, 'Tweet' %><br />
+    <%= f.text_area :body, autofocus: true, class:'form-control' %>
+  </div>
+
+  <div class="form-group">
+      <%= f.submit :submit, class: 'btn btn-default'%>
+  </div>
+
+<% end %>
