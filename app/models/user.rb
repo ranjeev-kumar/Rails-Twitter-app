@@ -33,10 +33,17 @@ class User < ActiveRecord::Base
 	validates :gender, presence: true
 
 
-	private
-  def is_valid_dob?
-    if((dob.is_a?(Date) rescue ArgumentError) == ArgumentError)
-      errors.add(:birthday, ': Sorry, Invalid Date of Birth Entered.')
+  after_create :welcome_user
+
+  private
+
+    def welcome_user
+      UserMailer.welcome_email(self).deliver
     end
-  end
+
+    def is_valid_dob?
+      if((dob.is_a?(Date) rescue ArgumentError) == ArgumentError)
+        errors.add(:birthday, ': Sorry, Invalid Date of Birth Entered.')
+      end
+    end
 end
