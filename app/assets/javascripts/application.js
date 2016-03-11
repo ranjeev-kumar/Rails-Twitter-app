@@ -14,12 +14,12 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
-//= require_tree .
 //= require bootstrap-datepicker
+//= require_tree .
 
 $(document).ready(function(){
     $('.datepicker').datepicker({
-    	startDate: "01/01/1900"
+    	startDate: "01/01/1900",
     	endDate: new Date()
     });
   });
