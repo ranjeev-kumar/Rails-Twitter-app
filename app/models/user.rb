@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/no_image.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   VALID_NAME_REGEX = /[a-zA-Z]+/

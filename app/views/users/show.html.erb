@@ -55,35 +55,41 @@
 						<% end %>
 					</div>
 				<% end %>
-
+				
 				<div id="comment-container">
-					<% tweet.comments.each do |comment| %>
-						<div id="comment-id">
-							<strong>
-								<%= link_to image_tag(comment.user.avatar.url, width: 20, height: 20, class: 'img-circle'), user_path(comment.user.id) %>
-								<%= link_to comment.user.fname + " " + comment.user.lname, user_path(comment.user.id)  %>
-							</strong>
-							<%= comment.body %>
-							<% if comment.user.id == current_user.id %>
-								<div class="pull-right">
-									<%= link_to edit_tweet_comment_path(tweet, comment) do %> 
-										<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
-									<% end %>&nbsp;|&nbsp;
+					<div class="col-sm-1"></div>
 
-									<%= link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: 'Are You Sure?'} do %>
-										<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
-									<% end %>
+					<div class="col-sm-11">
+						<% tweet.comments.each do |comment| %>
+							<div id="comment-id">
+								
+								<strong>
+									<%= link_to image_tag(comment.user.avatar.url, width: 20, height: 20, class: 'img-circle'), user_path(comment.user.id) %>
+									<%= link_to comment.user.fname + " " + comment.user.lname, user_path(comment.user.id)  %>
+								</strong>
+								<%= comment.body %>
+								<% if comment.user.id == current_user.id %>
+									<div class="pull-right">
+										<%= link_to edit_tweet_comment_path(tweet, comment) do %> 
+											<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
+										<% end %>&nbsp;|&nbsp;
+
+										<%= link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: 'Are You Sure?'} do %>
+											<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
+										<% end %>
+									</div>
+								<% end %>
+							</div>
+						<% end %>
+						
+						<div id="comment-form">
+							<%= form_for([tweet, tweet.comments.build]) do |f| %>
+								<div class="form-group">
+									<%= f.text_field :body %>
+									<%= f.submit :submit%>
 								</div>
 							<% end %>
 						</div>
-					<% end %>
-					<div id="comment-form">
-						<%= form_for([tweet, tweet.comments.build]) do |f| %>
-							<div class="form-group">
-								<%= f.text_area :body %>
-								<%= f.submit :submit%>
-							</div>
-						<% end %>
 					</div>
 				</div>	
 			</div>
@@ -95,12 +101,12 @@
 		<% if @user.id == current_user.id %>
 			<%= link_to 'Edit', edit_user_path(current_user.id), type: 'button', class: 'btn btn-primary' %>
 		<% end %>
-
-		<% if current_user.active_relationships.find_by(followed_id: @user.id) %>
-			
+		<% unless @user.id == current_user.id %>
+			<% if current_user.active_relationships.find_by(followed_id: @user.id) %>
 				<%= link_to 'Unfollow', unfollow_user_path(@user.id), method: :delete, type: 'button', class: 'btn btn-primary' %>
-		<% else %>
-			<%= link_to 'Follow', follow_user_path(@user.id), method: :post, type: 'button', class: 'btn btn-primary' %>
+			<% else %>
+				<%= link_to 'Follow', follow_user_path(@user.id), method: :post, type: 'button', class: 'btn btn-primary' %>
+			<% end %>
 		<% end %>
 	</div>
 </div>
