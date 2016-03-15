@@ -13,7 +13,7 @@ class TweetsController < ApplicationController
 	end
 
 	def create
-	@tweet = current_user.tweets.build(tweet_params)
+		@tweet = current_user.tweets.build(tweet_params)
   	@tweet.save
   	redirect_to tweets_path(@tweet)
 	end
@@ -31,6 +31,13 @@ class TweetsController < ApplicationController
 		@tweet = Tweet.find(params[:id])
 		@tweet.destroy
 		redirect_to tweets_path(@tweet)
+	end
+
+	def retweet
+		@body = Tweet.find(params[:id]).body
+		@tweet = current_user.tweets.build(body: @body)
+  	@tweet.save
+  	redirect_to tweets_path(@tweet)
 	end
 
 	private

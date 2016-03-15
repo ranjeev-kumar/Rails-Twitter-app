@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   end
 
   resources :tweets do
+    member do
+      post 'retweet'
+    end
     resources :comments
   end
   

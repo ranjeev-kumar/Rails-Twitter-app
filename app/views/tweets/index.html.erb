@@ -32,18 +32,23 @@
 				</strong>
 				<%= tweet.body %>
 
-				<% if tweet.user.id == current_user.id %>
 					<div class="pull-right">
-						<%= link_to edit_tweet_path(tweet.id) do %> 
-							<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
-						<% end %>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<%= link_to retweet_tweet_path(tweet), method: :post do %> 
+							<span class="glyphicon glyphicon-retweet" aria-hidden="true" title="Retweet"></span>
+						<% end %>&nbsp;&nbsp;
+						<% if tweet.user.id == current_user.id %>
+							<%= link_to edit_tweet_path(tweet) do %> 
+								<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
+							<% end %>&nbsp;&nbsp;
 
-						<%= link_to tweet_path(tweet), method: :delete, data: { confirm: 'Are You Sure?'} do %>
-							<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
+							<%= link_to tweet_path(tweet), method: :delete, data: { confirm: 'Are You Sure?'} do %>
+								<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
+							<% end %>
 						<% end %>
 					</div>
-				<% end %>
-				
+				<p>
+					
+				</p>
 				<div id="comment-container">
 					<div class="col-sm-1"></div>
 
@@ -59,7 +64,7 @@
 									<div class="pull-right">
 										<%= link_to edit_tweet_comment_path(tweet, comment) do %> 
 											<span class="glyphicon glyphicon-edit" aria-hidden="true" title="Edit"></span>
-										<% end %>&nbsp;|&nbsp;
+										<% end %>&nbsp;
 
 										<%= link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: 'Are You Sure?'} do %>
 											<span class="glyphicon glyphicon-remove" aria-hidden="true" title="Delete"></span>
