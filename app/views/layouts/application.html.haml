@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title Twitter
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .col-md-12.bg-primary
+      .pull-left
+        = link_to 'Home', tweets_path, class: 'btn btn-primary'
+      - if user_signed_in?
+        .pull-right
+          = link_to image_tag(current_user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(current_user.id)
+          %strong
+            = current_user.fname
+            &nbsp;#{current_user.lname}
+          = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'pull-right btn btn-primary'
+    %div{:style => "clear:both;"}
+      %p.notice= notice
+      %p.alert= alert
+    .col-sm-offset-1.col-sm-10
+      = yield

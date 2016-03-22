@@ -1,0 +1,13 @@
+= form_for([@tweet, @tweet.comments.build]) do |f|
+  .form-group
+    - if @comment.errors.any?
+      #error_explanation
+        %h3
+          = pluralize(@comment.errors.count, "error")
+          Prohibited this comment form being saved:
+        %ul
+          - @comment.errors.full_messages.each do |msg|
+            %li= msg
+  .form-group
+    = f.text_area :body
+    = f.submit :submit, class: 'pull-right'

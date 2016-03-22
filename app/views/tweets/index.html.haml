@@ -1,0 +1,56 @@
+#head-container.row
+  #new-tweet.col-md-3
+    = link_to image_tag(current_user.avatar.url, width: 90, height: 90, class: 'img-circle'), user_path(current_user.id)
+    %strong
+      = link_to current_user.fname + " " + current_user.lname, user_path(current_user.id)
+    %br
+    = render 'form'
+    %div
+      - User.all.each do |user|
+        - if user.id != current_user.id
+          %p
+            = link_to image_tag(user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(user.id)
+            %strong
+              = link_to user.fname + " " + user.lname, user_path(user.id)
+              %br
+  #tweet-container.col-md-6
+    - @tweets.each do |tweet|
+      #tweet-id
+        %strong
+          = link_to image_tag(tweet.user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(tweet.user.id)
+          = link_to tweet.user.fname + " " + tweet.user.lname, user_path(tweet.user.id)
+        = tweet.body
+        .pull-right
+          = link_to retweet_tweet_path(tweet), method: :post do
+            %span.glyphicon.glyphicon-retweet{"aria-hidden" => "true", :title => "Retweet"}
+          &nbsp;&nbsp;
+          - if tweet.user.id == current_user.id
+            = link_to edit_tweet_path(tweet) do
+              %span.glyphicon.glyphicon-edit{"aria-hidden" => "true", :title => "Edit"}
+            &nbsp;&nbsp;
+            
+            = link_to tweet_path(tweet), method: :delete, data: { confirm: 'Are You Sure?'} do
+              %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :title => "Delete"}
+        #comment-container
+          .col-sm-1
+          .col-sm-11
+            - tweet.comments.each do |comment|
+              #comment-id
+                %strong
+                  = link_to image_tag(comment.user.avatar.url, width: 25, height: 25, class: 'img-circle'), user_path(comment.user.id)
+                  = link_to comment.user.fname + " " + comment.user.lname, user_path(comment.user.id)
+                = comment.body
+                - if comment.user.id == current_user.id
+                  .pull-right
+                    = link_to edit_tweet_comment_path(tweet, comment) do
+                      %span.glyphicon.glyphicon-edit{"aria-hidden" => "true", :title => "Edit"}
+                    &nbsp;
+                    
+                    = link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: 'Are You Sure?'} do
+                      %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :title => "Delete"}
+            #comment-form
+              = form_for([tweet, tweet.comments.build]) do |f|
+                .form-group
+                  = f.text_field :body
+                  = f.submit :submit
+      %hr

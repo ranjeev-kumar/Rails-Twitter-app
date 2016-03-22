@@ -17,35 +17,35 @@
 
 
 body { padding-top: 25px; 
-	padding-left: 20px;
+  padding-left: 20px;
 }
 
 @font-face {
-    font-family: 'Glyphicons Halflings';
-    src: url('../assets/glyphicons-halflings-regular.eot');
-    src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../assets/glyphicons-halflings-regular.woff') format('woff'), url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  font-family: 'Glyphicons Halflings';
+  src: url('../assets/glyphicons-halflings-regular.eot');
+  src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../assets/glyphicons-halflings-regular.woff') format('woff'), url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 #index_title {
-	color:#00BFFF; 
-	text-align: center;
+  color:#00BFFF; 
+  text-align: center;
 }
 
 #sign_user {
-	float:right;
-	margin: 10px;
+  float:right;
+  margin: 10px;
 }
 
 .chk_input {
-	margin-left: 0px !important;
+  margin-left: 0px !important;
 }
 
 .glyphicon-remove {color: red;}
 
 .tweet-div, .tweet-comment-div {
-	border: 1px solid #CEECF5;
-	margin-bottom: 5px;
-	padding: 5px;
+  border: 1px solid #CEECF5;
+  margin-bottom: 5px;
+  padding: 5px;
 }
 
 

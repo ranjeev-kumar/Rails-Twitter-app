@@ -32,6 +32,12 @@ gem "paperclip", "~> 4.3"
 gem "thin"
 # Use bootstrap date-picker
 gem 'bootstrap-datepicker-rails'
+# User factory-girl for testing
+gem "factory_girl_rails", "~> 4.0"
+# Use haml instead of erb
+gem 'haml'
+# Use simple form
+gem 'simple_form'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -44,13 +50,15 @@ gem 'bootstrap-datepicker-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # rspec-rails is a testing framework for rails
+  gem 'rspec-rails', '~> 3.0'
 
-end
  gem 'pry'
+end
 
 group :production do
-	# Heroku deployment
-	gem 'rails_12factor'
+  # Heroku deployment
+  gem 'rails_12factor'
 end
 
 group :development do
@@ -59,5 +67,11 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'shoulda-matchers'
 end
 

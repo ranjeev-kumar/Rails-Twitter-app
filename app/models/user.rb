@@ -20,25 +20,21 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/no_image.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
-  VALID_NAME_REGEX = /[a-zA-Z]+/
+  validates :fname, presence: true, length: { minimum: 3, too_short: "should be atleast 3 characters long."}, format: { with: /[a-zA-Z]+/ }
 
-  validates :fname, presence: true, length: { minimum: 3, too_short: "should be atleast 3 characters long."}, format: { with: VALID_NAME_REGEX }
+  validates :lname, presence: true, length: { minimum: 3, too_short: "should be 3 characters long."}, format: { with: /[a-zA-Z]+/ }
 
-  validates :lname, presence: true, length: { minimum: 3, too_short: "should be 3 characters long."}, format: { with: VALID_NAME_REGEX }
+  validates :dob, presence: true
 
-	validates :dob, presence: true
+  validate :is_valid_dob?
 
-	validate :is_valid_dob?
-
-	validates :gender, presence: true
-
+  validates :gender, presence: true
 
   after_create :welcome_user
 
   private
-
     def welcome_user
-      UserMailer.welcome_email(self).deliver
+      UserMailer.welcome_email(self).deliver_now
     end
 
     def is_valid_dob?

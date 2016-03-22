@@ -8,10 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_sanitized_params, if: :devise_controller?
 
-def configure_sanitized_params
-  devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:fname, :lname , :dob, :gender, :email, :password)}
-
- # devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:fname, :lname , :dob, :gender)}
-
-end
+  def configure_sanitized_params
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:fname, :lname , :dob, :gender, :email, :password)}
+  end
 end

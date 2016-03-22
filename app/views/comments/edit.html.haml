@@ -1,0 +1,16 @@
+= form_for [@tweet, @comment] do |f|
+  .form-group
+    - if @comment.errors.any?
+      #error_explanation
+        %h3
+          = pluralize(@comment.errors.count, "error")
+          Prohibited this comment form being saved:
+        %ul
+          - @comment.errors.full_messages.each do |msg|
+            %li= msg
+  %div
+    = f.label :body, 'Comment'
+    %br
+    = f.text_area :body, autofocus: true, class:'form-control'
+  .form-group
+    = f.submit :submit, class: 'btn btn-default'

@@ -17,10 +17,10 @@
 //= require_tree .
 
 $(document).ready(function(){
-    $('.datepicker').datepicker({
-    	format: 'dd/mm/yyyy',
-    	startDate: "01/01/1900",
-    	endDate: new Date(),
-    	autoclose: true
-    });
+  $('.datepicker').datepicker({
+    format: 'dd/mm/yyyy',
+    startDate: "01/01/1900",
+    endDate: new Date(),
+    autoclose: true
   });
+});
